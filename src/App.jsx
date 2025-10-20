@@ -94,28 +94,36 @@ export default function App(){
   function itemById(id){ for(const cat of menu){ const it=cat.items.find(i=>i.id===id); if(it) return it } return null }
 
   async function submitOrder(){
-    const payload = {
-      structure: STRUCTURE_NAME,
-      when: new Date().toISOString(),
-      room: room?.trim()||null,
-      guestName: guestName?.trim()||null,
-      notes: notes?.trim()||null,
-      items: Object.entries(cart).map(([id,qty])=>({id,qty})),
-      total,
-      source: typeof window!=='undefined' ? window.location.href : ''
-    }
-    if(!payload.items.length){
-      alert('Carrello vuoto. Aggiungi almeno un prodotto.')
-      return
-    }
-    try{
-      const res = await fetch(ORDER_ENDPOINT, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)})
-      if(!res.ok) throw new Error('Invio fallito')
-      setShowReceipt(true); setJustSent(true); clearCart()
-    }catch(e){
-      alert('Errore: non è stato possibile inviare l\\'ordine. Controlla l\\'endpoint.')
-    }
+  const payload = {
+    structure: STRUCTURE_NAME,
+    when: new Date().toISOString(),
+    room: room?.trim() || null,
+    guestName: guestName?.trim() || null,
+    notes: notes?.trim() || null,
+    items: Object.entries(cart).map(([id, qty]) => ({ id, qty })),
+    total,
+    source: typeof window !== "undefined" ? window.location.href : ""
   }
+
+  if (!payload.items.length) {
+    alert("Carrello vuoto. Aggiungi almeno un prodotto.");
+    return;
+  }
+
+  try {
+    const res = await fetch(ORDER_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) throw new Error("Invio fallito");
+    setShowReceipt(true);
+    setJustSent(true);
+    clearCart();
+  } catch (e) {
+    alert("Errore: non è stato possibile inviare l'ordine. Controlla l'endpoint.");
+  }
+}
 
   const currentUrl = typeof window!=='undefined' ? window.location.href : ''
 
