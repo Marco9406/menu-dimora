@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --card: #ffffff;
+  --muted: #f4f4f5;
+}
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.35);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding: 1rem;
+  z-index: 50;
+}
+.modal {
+  background: white;
+  border-radius: 1rem;
+  max-width: 32rem;
+  width: 100%;
+  padding: 1rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,.15);
+}
+.sheet {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: 100%;
+  max-width: 28rem;
+  background: white;
+  padding: 1rem;
+  box-shadow: -10px 0 30px rgba(0,0,0,.2);
+  z-index: 50;
+}
